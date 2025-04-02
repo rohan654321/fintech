@@ -60,8 +60,8 @@ export default function AboutSection() {
           className="max-w-4xl mx-auto"
         >
           <motion.div variants={item} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-500">The Future of Finance <span className="text-amber-500">Starts Here</span> </h2>
-            <div className="w-20 h-1 bg-gray-500 mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">The Future of Finance <span>Starts Here</span> </h2>
+            <div className="w-20 h-1 bg-black mx-auto mb-6"></div>
           </motion.div>
 
           <motion.div variants={item}>

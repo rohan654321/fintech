@@ -91,8 +91,8 @@ export default function TopicsSection() {
     <section className="py-16 md:py-24 bg-gray-600/50" ref={ref}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-500">Discussion Points <span className="text-amber-500">at a Glance</span></h2>
-          <div className="w-20 h-1 bg-amber-50/55 mx-auto"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">Discussion Points <span>at a Glance</span></h2>
+          <div className="w-20 h-1 bg-black mx-auto"></div>
         </div>
 
         <motion.div
