@@ -42,7 +42,7 @@ export default function BrochureForm() {
         <CheckCircle className="w-16 h-16 mb-4 text-green-500" />
         <h3 className="mb-2 text-xl font-bold">Thank You!</h3>
         <p className="mb-4 text-gray-600">
-          Your brochure download request has been received. We'll send it to your email shortly.
+          Your brochure download request has been received. We&apos;ll send it to your email shortly.
         </p>
         <Button onClick={() => setIsSubmitted(false)}>Request Another</Button>
       </div>

@@ -1,313 +1,419 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Users, MessageSquare, Calendar } from "lucide-react"
-import BrochureForm from "@/components/brochure-form"
+"use client"
+
+import { motion } from "framer-motion"
+import ButtonLink from "@/components/ui/button-link"
+import { Download, Users, Network, Sparkles } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import FintechPioneerAwards from "@/components/finch-pioneer-awards"
 
 export default function AttendPage() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="py-16 text-white hero-gradient">
-        <div className="container px-4 mx-auto text-center md:px-6">
-          <h1 className="mb-6 text-3xl font-bold md:text-4xl">Why Attend</h1>
-          <p className="max-w-3xl mx-auto mb-8 text-lg">
-            The Global Fintech Summit offers you the opportunity to network with the most prominent leaders and
-            innovators in the industry.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="outline" className="bg-white text-primary hover:bg-gray-100">
-              Download Brochure
-            </Button>
-            <Button variant="outline" className="bg-white text-primary hover:bg-gray-100">
-              Attend as a Delegate
-            </Button>
-          </div>
-        </div>
-      </section>
+    <div className="pt-24 pb-16 bg-white mt-8">
+      <div className="container mx-auto px-4">
+        <motion.div variants={container} initial="hidden" animate="show" className="max-w-4xl mx-auto">
+          <motion.div variants={item} className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black">
+              Atte<span className="text-black">nd</span>
+            </h1>
+            <div className="w-20 h-1 mx-auto bg-black"></div>
+          </motion.div>
 
-      {/* Benefits Section */}
-      <section className="py-16">
-        <div className="container px-4 mx-auto md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="mb-12 text-3xl font-bold text-center">Unlock Global Insights and Expertise</h2>
+          <Tabs defaultValue="why-attend" className="mb-12">
+            <TabsList className="grid grid-cols-3 mb-8 mx-auto max-w-xl bg-gray-100">
+              <TabsTrigger value="why-attend">Why Attend</TabsTrigger>
+              <TabsTrigger value="brochure">Download Brochure</TabsTrigger>
+              <TabsTrigger value="networking">Networking</TabsTrigger>
+            </TabsList>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Industry-Leading Speakers</h3>
-                  <p className="text-gray-700">
-                    Hear from top experts shaping the future of the industry. From CEOs to regulatory officials and
-                    innovators, our speakers will share valuable insights and real-world experiences.
-                  </p>
-                </CardContent>
-              </Card>
+            <TabsContent value="why-attend" className="space-y-6">
+              <motion.h2
+                className="text-3xl font-bold text-center text-black"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Why Attend <span className="text-gray-600">2025</span>
+              </motion.h2>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Two Days of Dynamic Content</h3>
-                  <p className="text-gray-700">
-                    Immerse yourself in the Global Fintech Summit with engaging presentations, roundtables, and
-                    workshops. Whether you're interested in emerging risks, digital transformation, or customer
-                    experience, there's a session tailored to your needs.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <h2 className="mt-16 mb-12 text-3xl font-bold text-center">Spark Transformative Connections</h2>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Connect with Key Decision-Makers</h3>
-                  <p className="text-gray-700">
-                    With 75% of attendees at the 'Head-of'/Director level and above, the Global Fintech Summit offers
-                    the ideal environment for impactful discussions and partnership opportunities.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Engage with a Diverse Network</h3>
-                  <p className="text-gray-700">
-                    Meet industry leaders, from established banking and payments executives to innovative FinTech
-                    disruptors. These connections can pave the way for groundbreaking collaborations and new
-                    opportunities.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <h2 className="mt-16 mb-12 text-3xl font-bold text-center">Stay Ahead in FinTech</h2>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Innovation and Disruption</h3>
-                  <p className="text-gray-700">
-                    Keep up with the latest advancements in FinTech through six dynamic stages covering ground-breaking
-                    technologies and industry-changing trends.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="mb-4 text-xl font-semibold">Cutting-Edge Insights</h3>
-                  <p className="text-gray-700">
-                    Gain first-hand knowledge from leading companies and start-ups driving innovation. Discover how
-                    emerging technologies can address industry challenges and unlock new opportunities.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-12 text-center">
-              <p className="mb-8 text-xl font-semibold">
-                Join the Industry's Top Leaders. Seize the opportunity to connect with key accounts and maintain your
-                competitive edge.
+              <p className="text-lg text-gray-700 leading-relaxed text-center mb-8">
+                The Africa FinTech Fest & Awards offers you the opportunity to network with the most prominent leaders
+                and innovators in the industry.
               </p>
-              <p className="mb-8 text-lg">Stay ahead—be part of the conversation and lead the way in innovation!</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button>Download Brochure</Button>
-                <Button variant="outline">Attend as a Delegate</Button>
-                <Button variant="outline">Become a Sponsor</Button>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 mb-12">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="text-black p-4 rounded-lg transition-shadow duration-300"
+                >
+                  <ButtonLink
+                    href="/download-brochure"
+                    variant="primary"
+                    className="bg-gray-800 text-white hover:bg-gray-900"
+                  >
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Brochure
+                  </ButtonLink>
+                </motion.div>
+
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="text-black p-4 rounded-lg transition-shadow duration-300"
+                >
+                  <ButtonLink href="/book-now" variant="secondary" className="bg-gray-600 text-white hover:bg-gray-700">
+                    Attend as a Delegate
+                  </ButtonLink>
+                </motion.div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Networking Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container px-4 mx-auto md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="mb-8 text-3xl font-bold text-center">
-              Network with the Top Innovators in Banking and Fintech
-            </h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                >
+                  <h3 className="text-xl font-semibold mb-4 text-black">Unlock Global Insights and Expertise</h3>
+                  <ul className="space-y-4">
+                    <li className="flex">
+                      <div className="mr-4 mt-1 text-gray-600">
+                        <Sparkles className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Industry-Leading Speakers</p>
+                        <p className="text-sm text-gray-600">
+                          Hear from top experts shaping the future of the industry. From CEOs to regulatory officials
+                          and innovators.
+                        </p>
+                      </div>
+                    </li>
+                    <li className="flex">
+                      <div className="mr-4 mt-1 text-gray-600">
+                        <Sparkles className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Two Days of Dynamic Content</p>
+                        <p className="text-sm text-gray-600">
+                          Immerse yourself with engaging presentations, roundtables, and workshops on emerging risks,
+                          digital transformation, and customer experience.
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </motion.div>
 
-            <div className="p-8 mb-12 text-center bg-white rounded-lg shadow-md">
-              <h3 className="mb-6 text-2xl font-semibold">Forge Meaningful Connections at Global Fintech Summit</h3>
-              <p className="mb-6 text-lg text-gray-700">
-                Engage with peers, partners, and potential clients through a variety of structured and informal
-                networking opportunities designed to foster valuable relationships.
-              </p>
-            </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                >
+                  <h3 className="text-xl font-semibold mb-4 text-black">Spark Transformative Connections</h3>
+                  <ul className="space-y-4">
+                    <li className="flex">
+                      <div className="mr-4 mt-1 text-gray-600">
+                        <Users className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Connect with Key Decision-Makers</p>
+                        <p className="text-sm text-gray-600">
+                          With 75% of attendees at the &apos;Head-of&apos;/Director level and above, the event offers
+                          the ideal environment for impactful discussions.
+                        </p>
+                      </div>
+                    </li>
+                    <li className="flex">
+                      <div className="mr-4 mt-1 text-gray-600">
+                        <Users className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Engage with a Diverse Network</p>
+                        <p className="text-sm text-gray-600">
+                          Meet industry leaders, from established banking and payments executives to innovative FinTech
+                          disruptors.
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </motion.div>
+              </div>
 
-            <h3 className="mb-8 text-2xl font-semibold text-center">Build Meaningful Connections</h3>
+              <div className="text-center mt-12">
+                <h3 className="text-xl font-semibold mb-4 text-black">Stay Ahead in FinTech</h3>
+                <p className="text-gray-700 mb-6">
+                  Join the Industry&apos;s Top Leaders. Seize the opportunity to connect with key accounts and maintain
+                  your competitive edge. Stay ahead—be part of the conversation and lead the way in innovation!
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="text-black p-4 rounded-lg transition-shadow duration-300"
+                >
+                  <ButtonLink href="/book-now" variant="primary" className="bg-gray-800 text-white hover:bg-gray-900">
+                    Register Now
+                  </ButtonLink>
+                </motion.div>
+              </div>
+            </TabsContent>
 
-            <div className="grid gap-8 md:grid-cols-3">
-              <Card>
-                <CardContent className="p-6">
-                  <Users className="w-12 h-12 mb-4 text-primary" />
-                  <h4 className="mb-4 text-lg font-semibold">Connect with Industry Pioneers</h4>
-                  <p className="text-gray-700">
-                    Meet Top Fintech Leaders: The Global Fintech Summit gathers 250+ attendees, including C-suite
-                    executives and tech innovators.
-                  </p>
-                </CardContent>
-              </Card>
+            <TabsContent value="brochure" className="space-y-6">
+              <motion.h2
+                className="text-3xl font-bold text-center text-black"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Download <span className="text-gray-600">Brochure</span>
+              </motion.h2>
 
-              <Card>
-                <CardContent className="p-6">
-                  <MessageSquare className="w-12 h-12 mb-4 text-primary" />
-                  <h4 className="mb-4 text-lg font-semibold">Tailored 1-2-1 Meetings</h4>
-                  <p className="text-gray-700">
-                    Our dedicated team ensures you connect with the right people. Schedule personalized meetings with
-                    key decision-makers.
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="bg-gray-100 p-8 rounded-lg mt-6 shadow-xl">
+                <motion.h3
+                  className="text-2xl font-semibold mb-6 text-center text-black"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Request Your Event Brochure
+                </motion.h3>
 
-              <Card>
-                <CardContent className="p-6">
-                  <Calendar className="w-12 h-12 mb-4 text-primary" />
-                  <h4 className="mb-4 text-lg font-semibold">Engaging Discussions & Networking</h4>
-                  <p className="text-gray-700">
-                    Take part in structured discussions and informal networking sessions designed to build valuable
-                    connections.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+                <motion.form
+                  className="space-y-6 max-w-md mx-auto"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium mb-1 text-black">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                      required
+                    />
+                  </div>
 
-            <h3 className="mt-16 mb-8 text-2xl font-semibold text-center">What Awaits You in Johannesburg?</h3>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-1 text-black">
+                      Business Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                      required
+                    />
+                  </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <h4 className="mb-4 text-xl font-semibold">15 Hours of Networking</h4>
-                  <p className="text-gray-700">
-                    Over two days, immerse yourself in 15 hours of dedicated networking. Engage with industry peers,
-                    build new connections, and forge valuable partnerships in a dynamic and collaborative setting.
-                  </p>
-                </CardContent>
-              </Card>
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-medium mb-1 text-black">
+                      Company Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                      required
+                    />
+                  </div>
 
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <h4 className="mb-4 text-xl font-semibold">A Dynamic Exhibition Space</h4>
-                  <p className="text-gray-700">
-                    Discover cutting-edge innovations and solutions in our bustling exhibition area. Connect with
-                    leading providers, explore emerging technologies, and find answers to your biggest challenges.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+                  <div>
+                    <label htmlFor="job" className="block text-sm font-medium mb-1 text-black">
+                      Job Title *
+                    </label>
+                    <input
+                      type="text"
+                      id="job"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                      required
+                    />
+                  </div>
 
-      {/* Startup Nexus Section */}
-      <section className="py-16">
-        <div className="container px-4 mx-auto md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="p-8 mb-12 text-center bg-white rounded-lg shadow-md">
-              <h2 className="mb-4 text-3xl font-bold">Startup Nexus</h2>
-              <p className="mb-6 text-lg">Global Fintech Summit 2025</p>
-              <p className="mb-6">10 – 11 July 2025 | Johannesburg, South Africa</p>
-              <Button>Learn More</Button>
-            </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium mb-1 text-black">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
+                      required
+                    />
+                  </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-6 text-2xl font-semibold">
-                  Introducing Startup Nexus – The Innovation Hub of Global Fintech Summit 2025
-                </h3>
-                <div className="mb-6">
-                  <Button>Get More Info</Button>
+                  <motion.div className="pt-4" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <button
+                      type="submit"
+                      className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
+                    >
+                      Download Brochure
+                    </button>
+                  </motion.div>
+                </motion.form>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="networking" className="space-y-6">
+              <motion.h2
+                className="text-3xl font-bold text-center text-black"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Network<span className="text-gray-600">ing</span>
+              </motion.h2>
+
+              <motion.p
+                className="text-lg text-gray-700 leading-relaxed text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3 }}
+              >
+                Network with the Top Innovators in Banking and Fintech
+              </motion.p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 mb-12">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <ButtonLink
+                    className="bg-gray-800 text-white hover:bg-gray-900 py-3 px-6 rounded-lg shadow-md"
+                    href="/download-brochure"
+                    variant="primary"
+                  >
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Brochure
+                  </ButtonLink>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <ButtonLink href="/book-now" variant="secondary">
+                    Attend as a Delegate
+                  </ButtonLink>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <ButtonLink href="/sponsor" variant="outline">
+                    Become a Sponsor
+                  </ButtonLink>
+                </motion.div>
+              </div>
+
+              <motion.div
+                className="bg-gray-100 p-8 rounded-lg shadow-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                <motion.h3
+                  className="text-2xl font-semibold mb-6 text-center text-black"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1 }}
+                >
+                  Forge Meaningful Connections at Africa FinTech Fest & Awards
+                </motion.h3>
+
+                <motion.p
+                  className="text-center text-black mb-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                >
+                  Engage with peers, partners, and potential clients through a variety of structured and informal
+                  networking opportunities designed to foster valuable relationships.
+                </motion.p>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                  >
+                    <h4 className="text-xl font-semibold mb-4 text-black">Build Meaningful Connections</h4>
+                    <ul className="space-y-4 text-black">
+                      <li className="flex">
+                        <div className="mr-4 mt-1 text-primary">
+                          <Network className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Connect with Industry Pioneers</p>
+                          <p className="text-sm text-gray-600">
+                            Meet Top Fintech Leaders: The Africa FinTech Fest & Awards gathers 250+ attendees, including
+                            C-suite executives and tech innovators.
+                          </p>
+                        </div>
+                      </li>
+                      <li className="flex">
+                        <div className="mr-4 mt-1 text-primary">
+                          <Network className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Tailored 1-2-1 Meetings</p>
+                          <p className="text-sm text-gray-600">
+                            Our dedicated team ensures you connect with the right people. Schedule personalized meetings
+                            with key decision-makers.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                  >
+                    <h4 className="text-xl font-semibold mb-4 text-black">What Awaits You in Johannesburg?</h4>
+                    <ul className="space-y-4 text-black">
+                      <li className="flex">
+                        <div className="mr-4 mt-1 text-primary">
+                          <Network className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="font-medium">15 Hours of Networking</p>
+                          <p className="text-sm text-gray-600">
+                            Over two days, immerse yourself in 15 hours of dedicated networking. Engage with industry
+                            peers and build new connections.
+                          </p>
+                        </div>
+                      </li>
+                      <li className="flex">
+                        <div className="mr-4 mt-1 text-primary">
+                          <Network className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="font-medium">A Dynamic Exhibition Space</p>
+                          <p className="text-sm text-gray-600">
+                            Discover cutting-edge innovations and solutions in our bustling exhibition area. Connect
+                            with leading providers.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </motion.div>
                 </div>
-              </div>
-
-              <div>
-                <h3 className="mb-6 text-2xl font-semibold">A Launchpad for Start-up and Scale-Up Growth</h3>
-                <p className="mb-6 text-gray-700">
-                  This dedicated hub is built to accelerate the success of start-ups and scale-ups, featuring a dynamic
-                  stage, exclusive networking space, and high-impact deal booths.
-                </p>
-                <p className="text-gray-700">
-                  Startup Nexus unites the entire start up and scale-up ecosystem under one roof, offering an unmatched
-                  platform for growth and collaboration. Whether you're seeking funding, expansion opportunities, or
-                  strategic partnerships, this is the place to make it happen.
-                </p>
-              </div>
-            </div>
-
-            <div className="p-8 mt-12 mb-12 bg-white rounded-lg shadow-md">
-              <h3 className="mb-6 text-2xl font-semibold text-center">Startup Nexus Speakers</h3>
-              <p className="mb-6 text-center text-gray-700">Register here if you wish to speak at Startup Nexus</p>
-              <div className="text-center">
-                <Button>Apply to Speak</Button>
-              </div>
-            </div>
-
-            <div className="p-8 mb-12 bg-white rounded-lg shadow-md">
-              <h3 className="mb-6 text-2xl font-semibold text-center">WHO YOU'LL CONNECT WITH</h3>
-              <p className="mb-6 text-center text-gray-700">
-                Meet venture capitalists, corporate investors, accelerators, banking partnership leaders, startup
-                founders, and entrepreneurs.
-              </p>
-              <p className="mb-6 text-center text-gray-700">
-                This isn't just an event—it's a springboard for your ambitions. The stage is set, key players are coming
-                together, and the possibilities are endless. Will you be there to seize the moment?
-              </p>
-            </div>
-
-            <div className="p-8 bg-white rounded-lg shadow-md">
-              <h3 className="mb-6 text-2xl font-semibold text-center">Exclusive VC & Investor Passes</h3>
-              <p className="mb-6 text-center text-gray-700">
-                Are you a venture capitalist or investor? We're offering a limited number of complimentary passes for
-                our VC and investor community to experience Startup Nexus.
-              </p>
-              <p className="mb-6 text-center text-gray-700">
-                Join us for two impactful days to connect with leading startups, fellow investors, and industry
-                pioneers.
-              </p>
-              <div className="text-center">
-                <Button>Apply For Your Complementary Pass</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
+        </motion.div>
+      </div>
 
       {/* Fintech Pioneer Awards Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container px-4 mx-auto md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="mb-8 text-3xl font-bold text-center">Fintech Pioneer Awards</h2>
-            <p className="mb-6 text-lg text-gray-700">
-              The Fintech Pioneer Awards celebrate innovation, excellence, and leadership in the rapidly evolving
-              financial technology sector. Recognizing ground-breaking companies, visionary leaders, and disruptive
-              solutions, the awards highlight those shaping the future of digital finance. From payment innovations and
-              blockchain breakthroughs to AI-driven financial solutions, the event honours pioneers driving meaningful
-              change in the industry.
-            </p>
-            <p className="mb-8 text-lg text-gray-700">
-              Bringing together industry experts, investors, and startups, the Fintech Pioneer Awards serve as a
-              platform to showcase cutting-edge advancements and foster collaboration. Whether recognizing established
-              enterprises or emerging disruptors, the awards shine a spotlight on those redefining the financial
-              landscape.
-            </p>
-            <div className="text-center">
-              <Link href="/attend/awards">
-                <Button size="lg">Nominate for Fintech Pioneer Awards</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Brochure Form */}
-      <section className="py-16">
-        <div className="container px-4 mx-auto md:px-6">
-          <div className="max-w-md mx-auto">
-            <BrochureForm />
-          </div>
-        </div>
-      </section>
+      {/* <FintechPioneerAwards /> */}
     </div>
   )
 }

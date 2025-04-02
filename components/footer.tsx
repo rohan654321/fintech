@@ -1,98 +1,146 @@
 import Link from "next/link"
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container px-4 py-12 mx-auto md:px-6">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
+    <footer className="bg-gray-600 text-primary-foreground">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Global Fintech Summit</h3>
-            <p className="mb-4 text-gray-400">
-              Africa's Premier Banking & Fintech Summit
+            <h3 className="text-xl font-bold mb-4">Africa Fintech Fest</h3>
+            <p className="text-primary-foreground/80 mb-4">
+              Africa&apos;s Premier Banking & Fintech Summit
               <br />
               10 – 11 July 2025, Johannesburg, South Africa
             </p>
+            <div className="flex space-x-4">
+              <Link
+                href="https://linkedin.com"
+                className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={20} />
+              </Link>
+              <Link
+                href="https://twitter.com"
+                className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter size={20} />
+              </Link>
+              <Link
+                href="https://facebook.com"
+                className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </Link>
+              <Link
+                href="https://instagram.com"
+                className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </Link>
+            </div>
           </div>
+
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-lg font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="/" className="hover:text-white">
+                <Link href="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white">
+                <Link
+                  href="/about"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/attend" className="hover:text-white">
+                <Link
+                  href="/attend"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Attend
                 </Link>
               </li>
               <li>
-                <Link href="/sponsor" className="hover:text-white">
+                <Link
+                  href="/sponsor"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Sponsor
                 </Link>
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Resources</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-lg font-bold mb-4">Resources</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="/agenda" className="hover:text-white">
+                <Link
+                  href="/agenda"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Agenda
                 </Link>
               </li>
               <li>
-                <Link href="/speakers" className="hover:text-white">
+                <Link
+                  href="/speakers"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Speakers
                 </Link>
               </li>
               <li>
-                <Link href="/book-now" className="hover:text-white">
+                <Link
+                  href="/book-now"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Book Now
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/download-brochure"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
+                  Download Brochure
                 </Link>
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Connect With Us</h3>
-            <div className="flex space-x-4 text-gray-400">
-              <Link href="#" className="hover:text-white">
-                <Facebook size={20} />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Twitter size={20} />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Linkedin size={20} />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Instagram size={20} />
-                <span className="sr-only">Instagram</span>
-              </Link>
-            </div>
-            <p className="mt-4 text-gray-400">
-              Email: info@globalfintechsummit.com
-              <br />
-              Phone: +27 123 456 789
-            </p>
+            <h3 className="text-lg font-bold mb-4">Contact Us</h3>
+            <address className="not-italic text-primary-foreground/80">
+              <p>Johannesburg, South Africa</p>
+              <p className="mt-2">
+                <a href="mailto:info@africafintechfest.com" className="hover:text-primary-foreground transition-colors">
+                  info@africafintechfest.com
+                </a>
+              </p>
+              <p className="mt-1">
+                <a href="tel:+27123456789" className="hover:text-primary-foreground transition-colors">
+                  +27 12 345 6789
+                </a>
+              </p>
+            </address>
           </div>
         </div>
-        <div className="pt-8 mt-8 border-t border-gray-800 text-gray-400 text-sm">
-          <p>© 2025 Global Fintech Summit. All rights reserved.</p>
+
+        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60 text-sm">
+          <p>&copy; {new Date().getFullYear()} Africa Fintech Fest & Awards. All rights reserved.</p>
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer
 

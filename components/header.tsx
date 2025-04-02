@@ -1,113 +1,117 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { motion, AnimatePresence } from "framer-motion"
 
-const Header = () => {
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Attend", path: "/attend" },
+  { name: "Sponsor", path: "/sponsor" },
+  { name: "Statup Nexus", path: "/startup" },
+  { name: "Fintech Pionear", path: "/fintech" },
+  { name: "Speakers", path: "/speakers" },
+  { name: "Contact Us", path: "/contact" },
+  { name: "Book now", path: "/book-now" },
+]
+
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto"
+  }, [isMenuOpen])
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
-      <div className="container flex items-center justify-between h-16 px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/placeholder.svg?height=40&width=200"
-            alt="Global Fintech Summit Logo"
-            width={200}
-            height={40}
-            className="h-10 w-auto"
-          />
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md py-2",
+        scrolled ? "bg-gray-100 backdrop-blur-md" : "bg-white"
+      )}
+    >
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        <Link href="/" className="relative z-10">
+          <div className="flex items-center gap-2">
+            <img src="/7.png" alt="Global Fintech Fest" className="h-10 w-auto md:h-12" />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-primary">
-            Home
-          </Link>
-          <Link href="/about" className="text-sm font-medium hover:text-primary">
-            About
-          </Link>
-          <Link href="/attend" className="text-sm font-medium hover:text-primary">
-            Attend
-          </Link>
-          <Link href="/sponsor" className="text-sm font-medium hover:text-primary">
-            Sponsor
-          </Link>
-          <Link href="/agenda" className="text-sm font-medium hover:text-primary">
-            Agenda
-          </Link>
-          <Link href="/speakers" className="text-sm font-medium hover:text-primary">
-            Speakers
-          </Link>
-          <Link href="/book-now">
-            <Button >
-              Book Now
-            </Button>
-          </Link>
+        <nav className="hidden lg:flex items-center space-x-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.path}
+              className={cn(
+                "text-sm font-medium transition-colors text-gray-900 hover:text-gray-700",
+                pathname === item.path ? "font-semibold text-primary" : ""
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-md" onClick={toggleMenu} aria-label="Toggle menu">
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        <button
+          className="lg:hidden relative z-10"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? (
+            <X className="h-6 w-6 text-gray-900" />
+          ) : (
+            <Menu className="h-6 w-6 text-gray-900" />
+          )}
         </button>
-      </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-b shadow-sm">
-          <nav className="flex flex-col p-4 space-y-4">
-            <Link href="/" className="text-sm font-medium hover:text-primary" onClick={() => setIsMenuOpen(false)}>
-              Home
-            </Link>
-            <Link href="/about" className="text-sm font-medium hover:text-primary" onClick={() => setIsMenuOpen(false)}>
-              About
-            </Link>
-            <Link
-              href="/attend"
-              className="text-sm font-medium hover:text-primary"
-              onClick={() => setIsMenuOpen(false)}
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-white z-40 lg:hidden flex flex-col items-center justify-center space-y-8"
             >
-              Attend
-            </Link>
-            <Link
-              href="/sponsor"
-              className="text-sm font-medium hover:text-primary"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sponsor
-            </Link>
-            <Link
-              href="/agenda"
-              className="text-sm font-medium hover:text-primary"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Agenda
-            </Link>
-            <Link
-              href="/speakers"
-              className="text-sm font-medium hover:text-primary"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Speakers
-            </Link>
-            <Link href="/book-now" onClick={() => setIsMenuOpen(false)}>
-              <Button>
-                Book Now
-              </Button>
-            </Link>
-          </nav>
-        </div>
-      )}
+              {navItems.map((item) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * navItems.indexOf(item) }}
+                >
+                  <Link
+                    href={item.path}
+                    className={cn(
+                      "text-xl font-medium transition-colors hover:text-primary",
+                      pathname === item.path ? "text-primary font-semibold" : "text-gray-700"
+                    )}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </header>
   )
 }
-
-export default Header
-

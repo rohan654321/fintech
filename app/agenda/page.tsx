@@ -169,19 +169,20 @@ export default function AgendaPage() {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-16 text-white hero-gradient">
+      <section className="py-16 text-white ">
         <div className="container px-4 mx-auto text-center md:px-6">
-          <h1 className="mb-6 text-3xl font-bold md:text-4xl">Event Agenda</h1>
-          <p className="max-w-3xl mx-auto mb-8 text-lg">
+          <h1 className="mb-6 text-3xl font-bold md:text-4xl text-black">Event <span className="text-black">Agenda</span></h1>
+          <div className="w-20 h-1 bg-black mx-auto "></div>
+          <p className="max-w-3xl mx-auto mb-8 text-lg mt-8">
             Two days of insights, innovation, and networking with fintech leaders
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="outline" className="bg-white text-primary hover:bg-gray-100">
+            <Button variant="outline" className="bg-transparent border-black text-black hover:bg-gray-200">
               Download Agenda
             </Button>
-            <Button variant="outline" className="bg-white text-primary hover:bg-gray-100">
+            <Button variant="outline" className="bg-transparent border-black text-black hover:bg-gray-200">
               Download Brochure
             </Button>
           </div>
@@ -189,39 +190,39 @@ export default function AgendaPage() {
       </section>
 
       {/* Event Overview */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-12 bg-gray-200 text-black">
         <div className="container px-4 mx-auto md:px-6">
           <div className="grid gap-6 md:grid-cols-4">
-            <Card>
+            <Card className="bg-gray-100 text-black border-gray-300">
               <CardContent className="flex items-center gap-4 p-6">
-                <Calendar className="w-8 h-8 text-primary" />
+                <Calendar className="w-8 h-8 text-black" />
                 <div>
                   <h3 className="font-semibold">Date</h3>
                   <p className="text-sm text-gray-600">10-11 July 2025</p>
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-gray-100 text-black border-gray-300">
               <CardContent className="flex items-center gap-4 p-6">
-                <Clock className="w-8 h-8 text-primary" />
+                <Clock className="w-8 h-8 text-black" />
                 <div>
                   <h3 className="font-semibold">Time</h3>
                   <p className="text-sm text-gray-600">08:00 - 17:00</p>
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-gray-100 text-black border-gray-300">
               <CardContent className="flex items-center gap-4 p-6">
-                <MapPin className="w-8 h-8 text-primary" />
+                <MapPin className="w-8 h-8 text-black" />
                 <div>
                   <h3 className="font-semibold">Location</h3>
                   <p className="text-sm text-gray-600">Johannesburg, SA</p>
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-gray-100 text-black border-gray-300">
               <CardContent className="flex items-center gap-4 p-6">
-                <Users className="w-8 h-8 text-primary" />
+                <Users className="w-8 h-8 text-black" />
                 <div>
                   <h3 className="font-semibold">Attendees</h3>
                   <p className="text-sm text-gray-600">500+ Expected</p>
@@ -233,27 +234,30 @@ export default function AgendaPage() {
       </section>
 
       {/* Day 1 Agenda */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-100">
         <div className="container px-4 mx-auto md:px-6">
-          <h2 className="mb-8 text-2xl font-bold text-center">Day 1 - July 10, 2025</h2>
+          <h2 className="mb-8 text-2xl font-bold text-center text-black">Day 1 - July 10, 2025</h2>
           <div className="max-w-4xl mx-auto space-y-6">
             {day1Sessions.map((session, index) => (
-              <Card key={index} className={session.type === "break" ? "bg-gray-50" : ""}>
+              <Card
+                key={index}
+                className={session.type === "break" ? "bg-gray-200 border-gray-300" : "bg-white border border-gray-300"}
+              >
                 <CardContent className="p-6">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start">
                     <div className="w-full md:w-1/4">
-                      <p className="font-semibold text-primary">{session.time}</p>
+                      <p className="font-semibold text-black">{session.time}</p>
                       <p className="text-sm text-gray-600">{session.location}</p>
                     </div>
                     <div className="w-full md:w-3/4">
-                      <h3 className="text-lg font-semibold">{session.title}</h3>
+                      <h3 className="text-lg font-semibold text-black">{session.title}</h3>
                       {session.speaker && <p className="mt-1 text-sm text-gray-600">Speaker: {session.speaker}</p>}
                       {session.description && <p className="mt-2 text-sm text-gray-600">{session.description}</p>}
                       {session.type === "breakout" && session.sessions && (
                         <div className="mt-4 space-y-3">
                           {session.sessions.map((breakout, idx) => (
-                            <div key={idx} className="p-3 bg-white rounded-lg shadow-sm">
-                              <p className="font-medium">{breakout.title}</p>
+                            <div key={idx} className="p-3 bg-gray-100 rounded-lg shadow-sm border border-gray-300">
+                              <p className="font-medium text-black">{breakout.title}</p>
                               <p className="text-sm text-gray-600">
                                 {breakout.location} • {breakout.track} Track
                               </p>
@@ -271,27 +275,30 @@ export default function AgendaPage() {
       </section>
 
       {/* Day 2 Agenda */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-200">
         <div className="container px-4 mx-auto md:px-6">
-          <h2 className="mb-8 text-2xl font-bold text-center">Day 2 - July 11, 2025</h2>
+          <h2 className="mb-8 text-2xl font-bold text-center text-black">Day 2 - July 11, 2025</h2>
           <div className="max-w-4xl mx-auto space-y-6">
             {day2Sessions.map((session, index) => (
-              <Card key={index} className={session.type === "break" ? "bg-gray-50" : ""}>
+              <Card
+                key={index}
+                className={session.type === "break" ? "bg-gray-200 border-gray-300" : "bg-white border border-gray-300"}
+              >
                 <CardContent className="p-6">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start">
                     <div className="w-full md:w-1/4">
-                      <p className="font-semibold text-primary">{session.time}</p>
+                      <p className="font-semibold text-black">{session.time}</p>
                       <p className="text-sm text-gray-600">{session.location}</p>
                     </div>
                     <div className="w-full md:w-3/4">
-                      <h3 className="text-lg font-semibold">{session.title}</h3>
+                      <h3 className="text-lg font-semibold text-black">{session.title}</h3>
                       {session.speaker && <p className="mt-1 text-sm text-gray-600">Speaker: {session.speaker}</p>}
                       {/* {session.description && <p className="mt-2 text-sm text-gray-600">{session.description}</p>} */}
                       {session.type === "breakout" && session.sessions && (
                         <div className="mt-4 space-y-3">
                           {session.sessions.map((breakout, idx) => (
-                            <div key={idx} className="p-3 bg-white rounded-lg shadow-sm">
-                              <p className="font-medium">{breakout.title}</p>
+                            <div key={idx} className="p-3 bg-gray-100 rounded-lg shadow-sm border border-gray-300">
+                              <p className="font-medium text-black">{breakout.title}</p>
                               <p className="text-sm text-gray-600">
                                 {breakout.location} • {breakout.track} Track
                               </p>
@@ -309,15 +316,17 @@ export default function AgendaPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-900">
         <div className="container px-4 mx-auto text-center md:px-6">
-          <h2 className="mb-4 text-2xl font-bold">Ready to Join Us?</h2>
+          <h2 className="mb-4 text-2xl font-bold text-black">Ready to Join Us?</h2>
           <p className="mb-8 text-gray-600">Secure your spot at the Global Fintech Summit 2025</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/book-now">
-              <Button size="lg">Book Now</Button>
+              <Button size="lg" className="bg-black hover:bg-gray-800 text-white font-medium">
+                Book Now
+              </Button>
             </Link>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="border-black text-black hover:bg-gray-200">
               Contact Sales
             </Button>
           </div>
