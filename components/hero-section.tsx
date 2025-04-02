@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import ButtonLink from "@/components/ui/button-link"
 import { Download } from "lucide-react"
-import Image from "next/image"
+// import Image from "next/image"
 // import useCounter from "@/app/hooks/use-counter"
 // import { Card } from "@/components/ui/card"
 // import { Typewriter } from "./typewriter"
@@ -235,7 +235,7 @@ export default function HeroSection() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={item} className="flex justify-center">
-            <Image src="/6.png" className="h-24 md:h-32" alt={""} />
+            <img src="/6.png" className="h-24 md:h-32" alt={""} />
           </motion.div>
 
           <motion.div variants={item}>

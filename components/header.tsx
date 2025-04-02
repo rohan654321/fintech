@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+// import Image from "next/image"
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -47,7 +47,7 @@ export default function Header() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link href="/" className="relative z-10">
           <div className="flex items-center gap-2">
-            <Image src="/7.png" alt="Global Fintech Fest" className="h-10 w-auto md:h-12" />
+            <img src="/7.png" alt="Global Fintech Fest" className="h-10 w-auto md:h-12" />
           </div>
         </Link>
 
