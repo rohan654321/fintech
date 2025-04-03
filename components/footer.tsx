@@ -137,7 +137,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60 text-sm">
-          <p>&copy; {new Date().getFullYear()} Africa Fintech Fest & Awards. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Global Fintech Fest & Awards. All rights reserved.</p>
         </div>
       </div>
     </footer>

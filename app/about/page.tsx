@@ -4,8 +4,12 @@ import { motion } from "framer-motion"
 import ButtonLink from "@/components/ui/button-link"
 import { Download } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { BrochureDownloadForm } from "@/components/download-broucher"
 
 export default function AboutPage() {
+  const [brochureOpen, setBrochureOpen] = useState(false)
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -76,7 +80,7 @@ export default function AboutPage() {
                 challenges, and opportunities that will define the next era of fintech.
               </motion.p>
 
-              <div className="flex justify-center mt-8">
+              {/* <div className="flex justify-center mt-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -91,7 +95,7 @@ export default function AboutPage() {
                     Download Brochure
                   </ButtonLink>
                 </motion.div>
-              </div>
+              </div> */}
             </TabsContent>
 
             <TabsContent value="discussion" className="space-y-6">
@@ -173,7 +177,112 @@ export default function AboutPage() {
                   </ul>
                 </motion.div>
 
-                <div className="flex justify-center mt-8">
+                <motion.div
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Financial Inclusion</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      Digital Identity Solutions: Using fintech to provide secure digital identities for underserved populations.
+                    </li>
+                    <li>
+                      Microfinance and Neobanks: The role of neobanks and microfinance institutions in expanding access to financial services.
+                    </li>
+                    <li>
+                      AI-Driven Credit Scoring: Innovative approaches to credit assessment for individuals and SMEs with limited credit history.
+                    </li>
+                  </ul>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Regulation and Compliance</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      Global Regulatory Frameworks: Harmonizing regulations across borders to foster innovation while ensuring consumer protection.
+                    </li>
+                    <li>
+                      Anti-Money Laundering (AML) and Fraud Prevention: Advanced technologies for combating financial crime in a digital-first world.
+                    </li>
+                    <li>
+                      Sustainability and ESG Compliance: Aligning fintech innovations with environmental, social, and governance (ESG) goals.
+                    </li>
+                  </ul>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Sustainability and Green Fintech</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      Carbon Footprint Tracking: Fintech solutions that help consumers and businesses monitor and reduce their carbon emissions.
+                    </li>
+                    <li>
+                      Green Investments: Platforms that facilitate investments in sustainable projects and companies.
+                    </li>
+                    <li>
+                      Climate Risk Management: Tools for assessing and mitigating climate-related financial risks.
+                    </li>
+                  </ul>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Emerging Technologies</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      Quantum Computing: Exploring the potential of quantum computing to revolutionize financial modeling and security.
+                    </li>
+                    <li>
+                      Metaverse and Virtual Economies: The role of fintech in enabling transactions and financial services within virtual worlds.
+                    </li>
+                    <li>
+                      IoT and Smart Devices: The convergence of IoT and fintech for seamless, device-driven payments and banking.
+                    </li>
+                  </ul>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Cybersecurity and Data Privacy</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      Zero-Trust Architectures: Enhancing security in a world of increasing cyber threats.
+                    </li>
+                    <li>
+                      Data Localization and Sovereignty: Navigating the complexities of data privacy regulations across different jurisdictions.
+                    </li>
+                    <li>
+                      Biometric Authentication: The future of secure and user-friendly authentication methods.
+                    </li>
+                  </ul>
+                </motion.div>
+
+                {/* <div className="flex justify-center mt-8">
                   <ButtonLink
                     className="bg-gray-800 text-white py-3 px-6 rounded-lg shadow-md hover:bg-gray-900"
                     href="/download-brochure"
@@ -182,7 +291,7 @@ export default function AboutPage() {
                     <Download className="mr-2 h-5 w-5" />
                     Download Brochure
                   </ButtonLink>
-                </div>
+                </div> */}
               </div>
             </TabsContent>
 
@@ -255,6 +364,36 @@ export default function AboutPage() {
                     VCs, and top investors for two transformative days.
                   </p>
                 </motion.div>
+
+                <motion.div
+                  className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Dynamic Leadership Conversations</h3>
+                  <p className="text-gray-600">
+                    Africa FinTech Fest & Awards fuels the discussions that shape the future of the commercial world. Engage in one-on-one meetings, 
+                    interactive discussions, focused roundtables, and structured networking opportunities with an audience where 75% hold C-Level, 
+                    Director, VP, or Head positions within the Banking and Fintech sector.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-black">Fintech Pioneer Awards</h3>
+                  <p className="text-gray-600">
+                    Step into the spotlight at the Fintech Pioneer Awards—celebrating the bold visionaries and groundbreaking innovations 
+                    transforming the future of finance. Join us to honour the trailblazers redefining the industry and shaping tomorrow&apos;s 
+                    financial landscape. Be inspired, be recognized, and be part of the revolution!
+                  </p>
+                </motion.div>
               </div>
             </TabsContent>
 
@@ -278,7 +417,7 @@ export default function AboutPage() {
                 will be guiding the direction of the Africa FinTech Fest & Awards 2025.
               </motion.p>
 
-              <div className="flex justify-center mt-8">
+              {/* <div className="flex justify-center mt-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -293,7 +432,7 @@ export default function AboutPage() {
                     Download Brochure
                   </ButtonLink>
                 </motion.div>
-              </div>
+              </div> */}
             </TabsContent>
           </Tabs>
 
@@ -336,15 +475,18 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="hover:scale-105 transition-all duration-300"
               >
-                <ButtonLink
+                <Button
                   className="bg-gray-800 text-white py-3 px-6 rounded-lg shadow-md hover:bg-gray-900"
-                  href="/download-brochure"
-                  variant="primary"
+                  // href="/download-brochure"
+                  onClick={()=>setBrochureOpen(true)}
+                  // variant="primary"
                 >
                   <Download className="mr-2 h-5 w-5" />
                   Download Brochure
-                </ButtonLink>
+                </Button>
               </motion.div>
+              <BrochureDownloadForm open={brochureOpen} onOpenChange={setBrochureOpen} />
+              
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -377,9 +519,7 @@ export default function AboutPage() {
               </motion.div>
             </div>
           </motion.div>
-        </motion.div>
-      </div>
-    </div>
-  )
-}
 
+          </motion.div>
+          </div>
+          </div>)}

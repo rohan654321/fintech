@@ -1,12 +1,109 @@
 "use client"
 
+import type React from "react"
+
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Phone, MapPin, Clock, MessageSquare, Calendar, Users, Sparkles } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, MessageSquare, Calendar, Users, Sparkles, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useState, type FormEvent } from "react"
+// import { useToast } from "@/hooks/use-toast"
+import { toast } from "sonner";
+
 
 export default function ContactPage() {
+  // const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    inquiry: "",
+    message: "",
+  })
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [showThankYou, setShowThankYou] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+
+    // Clear error when user starts typing
+    if (errors[id]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev }
+        delete newErrors[id]
+        return newErrors
+      })
+    }
+  }
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {}
+
+    if (!formData.name.trim()) newErrors.name = "Name is required"
+    if (!formData.email.trim()) newErrors.email = "Email is required"
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address"
+    }
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required"
+    if (!formData.message.trim()) newErrors.message = "Message is required"
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+
+    if (!validateForm()) return
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong")
+      }
+
+      // Reset form on success
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        inquiry: "",
+        message: "",
+      })
+
+      // Show thank you message
+      setShowThankYou(true)
+
+      // Set timer to hide thank you message after 10 seconds
+      setTimeout(() => {
+        setShowThankYou(false)
+      }, 10000)
+
+      toast(
+       "Message sent successfully!.We'll get back to you as soon as possible"
+      )
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      toast( "Error sending message. Please try again later")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -157,97 +254,147 @@ export default function ContactPage() {
                   }}
                 ></div>
                 <CardContent className="p-8 relative">
-                  <h2 className="text-2xl font-bold mb-6 text-black flex items-center">
-                    <Sparkles className="w-5 h-5 mr-2 text-black" />
-                    Send Us a Message
-                  </h2>
-
-                  <form className="space-y-4">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-1 text-gray-800">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          className="w-full p-2 bg-white border border-gray-300 rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20"
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-1 text-gray-800">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          className="w-full p-2 bg-white border border-gray-300 rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="subject" className="block text-sm font-medium mb-1 text-gray-800">
-                        Subject *
-                      </label>
-                      <input
-                        type="text"
-                        id="subject"
-                        className="w-full p-2 bg-white border border-gray-300 rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="inquiry" className="block text-sm font-medium mb-1 text-gray-800">
-                        Type of Inquiry
-                      </label>
-                      <select
-                        id="inquiry"
-                        className="w-full p-2 bg-white border border-gray-300 rounded-md text-black focus:border-black focus:ring-black/20"
-                      >
-                        <option value="">Select an option</option>
-                        <option value="general">General Information</option>
-                        <option value="sponsorship">Sponsorship</option>
-                        <option value="speaking">Speaking Opportunity</option>
-                        <option value="registration">Registration</option>
-                        <option value="media">Media Inquiry</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-1 text-gray-800">
-                        Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={5}
-                        className="w-full p-2 bg-white border border-gray-300 rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20"
-                        required
-                      ></textarea>
-                    </div>
-
-                    <div className="pt-4">
-                      <button
-                        type="submit"
-                        className="w-full bg-black text-white py-3 rounded-md shadow-lg hover:bg-gray-800 transition-all duration-300"
-                      >
-                        <motion.span
-                          initial={{ opacity: 1 }}
-                          whileHover={{
-                            opacity: [1, 0.8, 1],
-                            transition: { duration: 1.5, repeat: Number.POSITIVE_INFINITY },
-                          }}
+                  {showThankYou ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center py-8"
+                    >
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-8 w-8 text-green-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
                         >
-                          Send Message
-                        </motion.span>
-                      </button>
-                    </div>
-                  </form>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <h2 className="text-2xl font-bold mb-4 text-black">Thank You!</h2>
+                      <p className="text-gray-700 mb-6">
+                        Your message has been sent successfully. We appreciate your interest and will get back to you as
+                        soon as possible.
+                      </p>
+                      <div className="text-sm text-gray-500">This message will disappear in a few seconds...</div>
+                    </motion.div>
+                  ) : (
+                    <>
+                      <h2 className="text-2xl font-bold mb-6 text-black flex items-center">
+                        <Sparkles className="w-5 h-5 mr-2 text-black" />
+                        Send Us a Message
+                      </h2>
+
+                      <form className="space-y-4" onSubmit={handleSubmit}>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div>
+                            <label htmlFor="name" className="block text-sm font-medium mb-1 text-gray-800">
+                              Full Name *
+                            </label>
+                            <input
+                              type="text"
+                              id="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              className={`w-full p-2 bg-white border ${errors.name ? "border-red-500" : "border-gray-300"} rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20`}
+                              required
+                            />
+                            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                          </div>
+
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium mb-1 text-gray-800">
+                              Email *
+                            </label>
+                            <input
+                              type="email"
+                              id="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              className={`w-full p-2 bg-white border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20`}
+                              required
+                            />
+                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label htmlFor="subject" className="block text-sm font-medium mb-1 text-gray-800">
+                            Subject *
+                          </label>
+                          <input
+                            type="text"
+                            id="subject"
+                            value={formData.subject}
+                            onChange={handleChange}
+                            className={`w-full p-2 bg-white border ${errors.subject ? "border-red-500" : "border-gray-300"} rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20`}
+                            required
+                          />
+                          {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
+                        </div>
+
+                        <div>
+                          <label htmlFor="inquiry" className="block text-sm font-medium mb-1 text-gray-800">
+                            Type of Inquiry
+                          </label>
+                          <select
+                            id="inquiry"
+                            value={formData.inquiry}
+                            onChange={handleChange}
+                            className="w-full p-2 bg-white border border-gray-300 rounded-md text-black focus:border-black focus:ring-black/20"
+                          >
+                            <option value="">Select an option</option>
+                            <option value="general">General Information</option>
+                            <option value="sponsorship">Sponsorship</option>
+                            <option value="speaking">Speaking Opportunity</option>
+                            <option value="registration">Registration</option>
+                            <option value="media">Media Inquiry</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label htmlFor="message" className="block text-sm font-medium mb-1 text-gray-800">
+                            Message *
+                          </label>
+                          <textarea
+                            id="message"
+                            rows={5}
+                            value={formData.message}
+                            onChange={handleChange}
+                            className={`w-full p-2 bg-white border ${errors.message ? "border-red-500" : "border-gray-300"} rounded-md text-black placeholder:text-gray-500 focus:border-black focus:ring-black/20`}
+                            required
+                          ></textarea>
+                          {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+                        </div>
+
+                        <div className="pt-4">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-black text-white py-3 rounded-md shadow-lg hover:bg-gray-800 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                Sending...
+                              </>
+                            ) : (
+                              <motion.span
+                                initial={{ opacity: 1 }}
+                                whileHover={{
+                                  opacity: [1, 0.8, 1],
+                                  transition: { duration: 1.5, repeat: Number.POSITIVE_INFINITY },
+                                }}
+                              >
+                                Send Message
+                              </motion.span>
+                            )}
+                          </button>
+                        </div>
+                      </form>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

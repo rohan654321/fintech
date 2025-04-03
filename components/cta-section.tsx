@@ -1,11 +1,14 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import ButtonLink from "@/components/ui/button-link"
 import { Download } from "lucide-react"
+import { BrochureDownloadForm } from "./download-broucher"
+import { Button } from "./ui/button"
 
 export default function CTASection() {
+  const [brochureOpen, setBrochureOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
 
@@ -33,21 +36,23 @@ export default function CTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <ButtonLink
               href="/book-now"
-              variant="secondary"
+              // variant="secondary"
               size="lg"
-              className="bg-gray-600/50 text-primary hover:bg-gray-600/50 text-white"
+              className="bg-gray-600/50  hover:bg-gray-600/50 text-white"
             >
               Buy Tickets Now
             </ButtonLink>
-            <ButtonLink
-              href="/download-brochure"
+            <Button
+              // href="/download-brochure"
               variant="outline"
               size="lg"
               className="border-gray-500/30 text-black "
+              onClick={()=>setBrochureOpen(true)}
             >
               <Download className="mr-2 h-5 w-5" />
               Download Brochure
-            </ButtonLink>
+            </Button>
+            <BrochureDownloadForm open={brochureOpen} onOpenChange={setBrochureOpen} />
           </div>
         </motion.div>
       </div>

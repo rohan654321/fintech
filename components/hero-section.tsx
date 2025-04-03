@@ -4,6 +4,10 @@ import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import ButtonLink from "@/components/ui/button-link"
 import { Download } from "lucide-react"
+import { Button } from "./ui/button"
+// import { BrochureDownloadForm } from "./download-broucher"
+// import BrochureForm from "./brochure-form"
+import { BrochureDownloadForm } from "./download-broucher"
 // import Image from "next/image"
 // import useCounter from "@/app/hooks/use-counter"
 // import { Card } from "@/components/ui/card"
@@ -34,6 +38,7 @@ import { Download } from "lucide-react"
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
+  const [brochureOpen, setBrochureOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -220,6 +225,10 @@ export default function HeroSection() {
     }
   }, [])
 
+  // function setBrochureOpen(arg0: boolean): void {
+  //   throw new Error("Function not implemented.")
+  // }
+
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden bg-gray-950">
       {/* Network and blockchain visualization */}
@@ -255,7 +264,7 @@ export default function HeroSection() {
           <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <ButtonLink
               href="/sponsor"
-              variant="primary"
+              // variant="primary"
               size="lg"
               className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0"
             >
@@ -263,22 +272,23 @@ export default function HeroSection() {
             </ButtonLink>
             <ButtonLink
               href="/book-now"
-              variant="secondary"
+              // variant="secondary"
               size="lg"
               className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white border-0"
             >
               Buy Tickets
             </ButtonLink>
-            <ButtonLink
-              href="/download-brochure"
+            <Button
               variant="outline"
               size="lg"
-              className="border-cyan-400 text-cyan-300 "
+              className="border-cyan-400 text-cyan-300"
+              onClick={() => setBrochureOpen(true)}
             >
               <Download className="mr-2 h-5 w-5" />
               Download Brochure
-            </ButtonLink>
+            </Button>
           </motion.div>
+          <BrochureDownloadForm open={brochureOpen} onOpenChange={setBrochureOpen} />
 
           {/* <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Card className="max-w-3xl mx-auto p-6 shadow-lg rounded-2xl bg-white/80 backdrop-blur-sm border-slate-700 ">

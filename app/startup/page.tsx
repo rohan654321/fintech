@@ -2,9 +2,17 @@
 
 import { motion } from "framer-motion"
 // import { Network } from 'lucide-react'
-import ButtonLink from "@/components/ui/button-link"
+// import ButtonLink from "@/components/ui/button-link"
+
+import { useState } from "react";
+
+
 
 export default function StartupNexus() {
+  const [formData, setFormData] = useState({ name: "", email: "" });
+const [loading, setLoading] = useState(false);
+const [message, setMessage] = useState("");
+const [showForm, setShowForm] = useState(true);
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -20,6 +28,38 @@ export default function StartupNexus() {
 //     hidden: { opacity: 0, y: 20 },
 //     show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 //   }
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setMessage("");
+
+  const res = await fetch("/api/startup-nexus", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  const data = await res.json();
+  setLoading(false);
+
+  if (res.ok) {
+    setMessage("Thank you! We've received your request.");
+    setFormData({ name: "", email: "" });
+    setShowForm(false); // Hide form and show thank-you message
+
+    // Reset form after 10 seconds
+    setTimeout(() => {
+      setShowForm(true);
+      setMessage("");
+    }, 10000);
+  } else {
+    setMessage(data.error || "Something went wrong. Please try again.");
+  }
+};
 
   return (
     <div className="py-16 bg-white mt-10">
@@ -31,62 +71,71 @@ export default function StartupNexus() {
           className="max-w-5xl mx-auto"
         >
           <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
+          <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.5 }} 
+          className="max-w-4xl mx-auto"
+        >
+          <div className="bg-white shadow-xl rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-4xl font-bold text-black mb-4">
+              Startup <span className="text-gray-600">Nexus</span>
+            </h2>
+            <p className="text-gray-700 text-lg mb-6">
+              Africa FinTech Fest & Awards 2025
+              <br />
+              10 – 11 July 2025 | Johannesburg, South Africa
+            </p>
+
+            {/* Form Card */}
+            <motion.div 
+              className="mt-8 bg-gray-100 p-8 rounded-lg shadow-lg max-w-lg mx-auto"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl font-bold text-center text-black mb-4">
-                Startup <span className="text-gray-600">Nexus</span>
-              </h2>
-              <p className="text-gray-700 text-lg text-center mb-6">
-                Africa FinTech Fest & Awards 2025
-                <br />
-                10 – 11 July 2025 | Johannesburg, South Africa
-              </p>
+              <h3 className="text-xl font-semibold mb-4 text-black">Get More Info</h3>
 
-              <div className="flex justify-center mb-6">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <ButtonLink 
-                    href="/startup-nexus" 
-                    variant="primary"
-                    className="bg-black text-white hover:bg-gray-800"
-                  >
-                    Learn More
-                  </ButtonLink>
-                </motion.div>
-              </div>
-
-              <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-4 text-black">Get More Info</h3>
-                <form className="space-y-4">
+              {showForm ? (
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <input
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="Full Name *"
-                      className="w-full p-2 border border-gray-300 rounded-md text-black"
+                      className="w-full p-3 border border-gray-300 rounded-md text-black"
                       required
                     />
                   </div>
                   <div>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="Business Email *"
-                      className="w-full p-2 border border-gray-300 rounded-md text-black"
+                      className="w-full p-3 border border-gray-300 rounded-md text-black"
                       required
                     />
                   </div>
                   <div>
                     <button
                       type="submit"
-                      className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
+                      className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition-all"
+                      disabled={loading}
                     >
-                      Submit
+                      {loading ? "Submitting..." : "Submit"}
                     </button>
                   </div>
                 </form>
-              </div>
+              ) : (
+                <p className="text-center text-green-600 text-lg">{message}</p>
+              )}
             </motion.div>
+          </div>
+        </motion.div>
 
             <motion.div 
               initial={{ opacity: 0, x: 20 }} 
@@ -125,14 +174,14 @@ export default function StartupNexus() {
                     passes for our VC and investor community to experience Startup Nexus.
                   </p>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <ButtonLink 
+                    {/* <ButtonLink 
                       href="/complementary-pass" 
                       variant="outline" 
                       size="sm"
                       className="border-black text-black hover:bg-gray-100"
                     >
                       Apply For Your Complementary Pass
-                    </ButtonLink>
+                    </ButtonLink> */}
                   </motion.div>
                 </div>
               </div>

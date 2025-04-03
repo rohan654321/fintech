@@ -14,7 +14,7 @@ const navItems = [
   { name: "Attend", path: "/attend" },
   { name: "Sponsor", path: "/sponsor" },
   { name: "Statup Nexus", path: "/startup" },
-  { name: "Fintech Pionear", path: "/fintech" },
+  { name: "Fintech Pioneer Awards", path: "/fintech" },
   { name: "Speakers", path: "/speakers" },
   { name: "Contact Us", path: "/contact" },
   { name: "Book now", path: "/book-now" },

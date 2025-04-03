@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion"
 import ButtonLink from "@/components/ui/button-link"
-import { Download, Users, Network, Sparkles } from "lucide-react"
+import {  Users, Network, Sparkles } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import { toast } from "sonner";
+// import { useState } from "react"
+import BrochureForm from "@/components/Broucher-form"
 // import FintechPioneerAwards from "@/components/finch-pioneer-awards"
 
 export default function AttendPage() {
@@ -57,7 +60,7 @@ export default function AttendPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 mb-12">
-                <motion.div
+                {/* <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="text-black p-4 rounded-lg transition-shadow duration-300"
                 >
@@ -69,7 +72,7 @@ export default function AttendPage() {
                     <Download className="mr-2 h-5 w-5" />
                     Download Brochure
                   </ButtonLink>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -190,81 +193,7 @@ export default function AttendPage() {
                   Request Your Event Brochure
                 </motion.h3>
 
-                <motion.form
-                  className="space-y-6 max-w-md mx-auto"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                >
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-1 text-black">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-1 text-black">
-                      Business Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium mb-1 text-black">
-                      Company Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="job" className="block text-sm font-medium mb-1 text-black">
-                      Job Title *
-                    </label>
-                    <input
-                      type="text"
-                      id="job"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-1 text-black">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-                      required
-                    />
-                  </div>
-
-                  <motion.div className="pt-4" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <button
-                      type="submit"
-                      className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors"
-                    >
-                      Download Brochure
-                    </button>
-                  </motion.div>
-                </motion.form>
+               <BrochureForm/>
               </div>
             </TabsContent>
 
@@ -288,7 +217,7 @@ export default function AttendPage() {
               </motion.p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 mb-12">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <ButtonLink
                     className="bg-gray-800 text-white hover:bg-gray-900 py-3 px-6 rounded-lg shadow-md"
                     href="/download-brochure"
@@ -297,7 +226,7 @@ export default function AttendPage() {
                     <Download className="mr-2 h-5 w-5" />
                     Download Brochure
                   </ButtonLink>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <ButtonLink href="/book-now" variant="secondary">
