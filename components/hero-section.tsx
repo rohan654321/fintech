@@ -8,7 +8,7 @@ import { Button } from "./ui/button"
 // import { BrochureDownloadForm } from "./download-broucher"
 // import BrochureForm from "./brochure-form"
 import { BrochureDownloadForm } from "./download-broucher"
-// import Image from "next/image"
+import Image from "next/image"
 // import useCounter from "@/app/hooks/use-counter"
 // import { Card } from "@/components/ui/card"
 // import { Typewriter } from "./typewriter"
@@ -244,7 +244,7 @@ export default function HeroSection() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={item} className="flex justify-center">
-            <img src="/6.png" className="h-24 md:h-32" alt={""} />
+          <Image src="/6.png" alt="Logo" width={400} height={50} />
           </motion.div>
 
           <motion.div variants={item}>
