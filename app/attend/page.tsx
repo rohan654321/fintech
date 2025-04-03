@@ -193,7 +193,7 @@ export default function AttendPage() {
                   Request Your Event Brochure
                 </motion.h3>
 
-               <BrochureForm/>
+              <BrochureForm/>
               </div>
             </TabsContent>
 
