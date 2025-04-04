@@ -52,15 +52,15 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user:  "mondalrohan201@gmail.com",
-        pass:  "bikj srmk yhbx pdtj"
+        user: "chvamshi03@gmail.com", // Your email address
+        pass: 'zfie hmte iyxt wyto', // Your email password or app password
       },
     });
 
     // Email to nominator
     if (data.nominatorEmail) {
       await transporter.sendMail({
-        from:  "mondalrohan201@gmail.com",
+        from:  "chvamshi03@gmail.com",
         to: data.nominatorEmail,
         subject: "Nomination Received - Fintech Pioneer Awards",
         html: `
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     // Email to admin (only if ADMIN_EMAIL is set)
     if (process.env.ADMIN_EMAIL) {
       await transporter.sendMail({
-        from:  "mondalrohan201@gmail.com",
+        from:  "chvamshi03@gmail.com",
         to: process.env.ADMIN_EMAIL,
         subject: `New Nomination: ${data.companyName}`,
         html: `

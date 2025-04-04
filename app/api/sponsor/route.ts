@@ -16,14 +16,14 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       service: "gmail", // or 'outlook', 'yahoo', etc.
       auth: {
-        user: "mondalrohan201@gmail.com" ,
-        pass: "bikj srmk yhbx pdtj"
+        user: "chvamshi03@gmail.com", // Your email address
+        pass: 'zfie hmte iyxt wyto', // Your email password or app password
       },
     })
 
     // Email to organization
     const organizationMailOptions = {
-      from: "mondalrohan201@gmail.com",
+      from: "chvamshi03@gmail.com",
       to: process.env.EMAIL_TO || "sponsors@africafintechfest.com",
       subject: `New Sponsorship Application: ${sponsorPackage} - ${company}`,
       html: `
