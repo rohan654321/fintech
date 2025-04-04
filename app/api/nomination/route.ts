@@ -1,66 +1,31 @@
-import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import nodemailer from "nodemailer";
-
-const prisma = new PrismaClient();
-
-interface PrismaError extends Error {
-  code?: string;
-  meta?: {
-    target?: string[];
-  };
-}
+import { NextResponse } from "next/server"
+import nodemailer from "nodemailer"
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json();
+    const data = await request.json()
 
     // Validate required fields
-    const requiredFields = ['companyName', 'contactPerson', 'email', 'nominatorName', 'nominatorEmail'];
-    const missingFields = requiredFields.filter(field => !data[field]);
-    
-    if (missingFields.length > 0) {
-      return NextResponse.json(
-        { error: `Missing required fields: ${missingFields.join(', ')}` },
-        { status: 400 }
-      );
-    }
+    const requiredFields = ["companyName", "contactPerson", "email", "nominatorName", "nominatorEmail"]
+    const missingFields = requiredFields.filter((field) => !data[field])
 
-    // Create nomination in database
-    const nomination = await prisma.nomination.create({
-      data: {
-        companyName: data.companyName,
-        website: data.website || null,
-        contactPerson: data.contactPerson,
-        email: data.email,
-        phone: data.phone,
-        country: data.country,
-        awardCategory: data.awardCategory,
-        description: data.description,
-        innovation: data.innovation,
-        evidence: data.evidence,
-        links: data.links || null,
-        socialMedia: data.socialMedia || null,
-        nominatorName: data.nominatorName,
-        nominatorOrg: data.nominatorOrg || null,
-        nominatorEmail: data.nominatorEmail,
-        nominatorPhone: data.nominatorPhone
-      }
-    });
+    if (missingFields.length > 0) {
+      return NextResponse.json({ error: `Missing required fields: ${missingFields.join(", ")}` }, { status: 400 })
+    }
 
     // Configure email transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "chvamshi03@gmail.com", // Your email address
-        pass: 'zfie hmte iyxt wyto', // Your email password or app password
+        pass: "zfie hmte iyxt wyto", // Your email password or app password
       },
-    });
+    })
 
     // Email to nominator
     if (data.nominatorEmail) {
       await transporter.sendMail({
-        from:  "chvamshi03@gmail.com",
+        from: "chvamshi03@gmail.com",
         to: data.nominatorEmail,
         subject: "Nomination Received - Fintech Pioneer Awards",
         html: `
@@ -72,14 +37,14 @@ export async function POST(request: Request) {
           <p>Our team will review all submissions and notify you of the outcome by June 30, 2025.</p>
           <p>Best regards,</p>
           <p>The Fintech Pioneer Awards Team</p>
-        `
-      });
+        `,
+      })
     }
 
     // Email to admin (only if ADMIN_EMAIL is set)
     if (process.env.ADMIN_EMAIL) {
       await transporter.sendMail({
-        from:  "chvamshi03@gmail.com",
+        from: "chvamshi03@gmail.com",
         to: process.env.ADMIN_EMAIL,
         subject: `New Nomination: ${data.companyName}`,
         html: `
@@ -89,43 +54,30 @@ export async function POST(request: Request) {
           <p><strong>Submitted by:</strong> ${data.nominatorName} (${data.nominatorEmail})</p>
           <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
           <p>View details in the admin dashboard.</p>
-        `
-      });
+        `,
+      })
     }
 
-    return NextResponse.json({ success: true, nomination });
+    return NextResponse.json({
+      success: true,
+      message: "Nomination submitted successfully",
+    })
   } catch (error: unknown) {
-    console.error("Error submitting nomination:", error);
-    
-    let errorMessage = "Failed to submit nomination";
-    let statusCode = 500;
-    let errorDetails: string[] | undefined = undefined;
+    console.error("Error submitting nomination:", error)
+
+    let errorMessage = "Failed to submit nomination"
+    const statusCode = 500
 
     // Type-safe error handling
-    if (typeof error === 'object' && error !== null) {
-      const err = error as PrismaError;
-      
-      if (err.code === 'P2002') {
-        errorMessage = "This email has already been used for a nomination";
-        statusCode = 409;
-      } else if (err.code === 'EENVELOPE') {
-        errorMessage = "Email configuration error - please contact support";
-        statusCode = 500;
-      } else if (err instanceof Error) {
-        errorMessage = err.message;
-      }
-
-      if (err.meta?.target) {
-        errorDetails = err.meta.target;
+    if (error instanceof Error) {
+      if (error.message.includes("EENVELOPE")) {
+        errorMessage = "Email configuration error - please contact support"
+      } else {
+        errorMessage = error.message
       }
     }
 
-    return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: errorDetails 
-      },
-      { status: statusCode }
-    );
+    return NextResponse.json({ error: errorMessage }, { status: statusCode })
   }
 }
+
